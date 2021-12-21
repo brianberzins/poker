@@ -16,10 +16,10 @@ class HandTest {
     @Test
     void testHighCard() {
         Hand hand = new Hand(
-                new Card(ACE, SPADES),
-                new Card(JACK, CLUBS),
-                new Card(SEVEN, DIAMONDS),
                 new Card(THREE, DIAMONDS),
+                new Card(JACK, CLUBS),
+                new Card(ACE, SPADES),
+                new Card(SEVEN, DIAMONDS),
                 new Card(DEUCE, HEARTS));
         assertEquals(HIGH_CARD, hand.strength());
 
