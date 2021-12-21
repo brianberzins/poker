@@ -13,7 +13,6 @@ class HandTest {
         Hand hand = new Hand("3D","JC","AS","7D","2H");
         assertEquals(HIGH_CARD, hand.strength());
         assertEquals(ACE, hand.highCard());
-//        CombinationApprovals.verifyAllCombinations(Card::new, Rank.values(), Suit.values());
     }
 
 }
