@@ -3,7 +3,7 @@ package org.murasaki.poker;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-final class Hand implements Comparable<Hand>{
+final class Hand implements Comparable<Hand> {
 
     final Card[] cards;
 
@@ -28,6 +28,13 @@ final class Hand implements Comparable<Hand>{
 
     @Override
     public int compareTo(Hand other) {
+        for(int i = cards.length - 1; 0 <= i; i--) {
+            if (cards[i].rank.value < other.cards[i].rank.value) {
+                return -1;
+            } else if (other.cards[i].rank.value < cards[i].rank.value) {
+                return 1;
+            }
+        }
         return 0;
     }
 
