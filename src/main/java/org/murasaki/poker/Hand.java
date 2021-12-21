@@ -3,12 +3,18 @@ package org.murasaki.poker;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static org.murasaki.poker.Strength.*;
+final class Hand implements Comparable<Hand>{
 
-final class Hand {
-    private final Card[] cards;
+    enum Result {
+        WIN,
+        LOSE,
+        TIE
+    }
+
+    final Card[] cards;
 
     Hand(Card... cards) {
+        assert cards.length == 5;
         Arrays.sort(cards);
         this.cards = cards;
     }
@@ -17,17 +23,28 @@ final class Hand {
         this(Arrays.stream(cards).map(Card::new).toList().toArray(new Card[cards.length]));
     }
 
-    Strength strength() {
-        return HIGH_CARD;
-    }
-
-    Rank highCard() {
-        return cards[cards.length - 1].rank;
+    Hand(String cards) {
+        this(cards.split(" "));
     }
 
     @Override
     public String toString() {
         return Arrays.stream(cards).map(Card::toString).collect(Collectors.joining(" "));
     }
+
+    @Override
+    public int compareTo(Hand other) {
+        return 0;
+    }
+
+    Result compare(Hand other) {
+        return switch (compareTo(other)) {
+            case -1 -> Result.LOSE;
+            case 0 -> Result.TIE;
+            case 1 -> Result.WIN;
+            default -> throw new IllegalStateException();
+        };
+    }
+
 
 }

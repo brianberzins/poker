@@ -1,17 +1,13 @@
 package org.murasaki.poker;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 class Card implements Comparable<Card> {
 
     final Rank rank;
     final Suit suit;
-
-    Card(Rank rank, Suit suit) {
-        this.rank = rank;
-        this.suit = suit;
-    }
 
     Card(String string) {
         assert string.length() == 2;
@@ -33,5 +29,18 @@ class Card implements Comparable<Card> {
     @Override
     public int compareTo(Card other) {
         return Integer.compare(rank.value, other.rank.value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Card card = (Card) other;
+        return rank == card.rank && suit == card.suit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank, suit);
     }
 }
