@@ -5,9 +5,16 @@ import java.util.stream.Collectors;
 
 import static org.murasaki.poker.Strength.*;
 
-record Hand(Card... cards) {
-    Hand {
+final class Hand {
+    private final Card[] cards;
+
+    Hand(Card... cards) {
         Arrays.sort(cards);
+        this.cards = cards;
+    }
+
+    Hand(String... cards) {
+        this(Arrays.stream(cards).map(Card::new).toList().toArray(new Card[cards.length]));
     }
 
     Strength strength() {
@@ -15,11 +22,12 @@ record Hand(Card... cards) {
     }
 
     Rank highCard() {
-        return cards[cards.length - 1].rank();
+        return cards[cards.length - 1].rank;
     }
 
     @Override
     public String toString() {
         return Arrays.stream(cards).map(Card::toString).collect(Collectors.joining(" "));
     }
+
 }
