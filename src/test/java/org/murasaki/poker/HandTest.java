@@ -1,5 +1,6 @@
 package org.murasaki.poker;
 
+import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ class HandTest {
                 new Card(SEVEN, DIAMONDS),
                 new Card(DEUCE, HEARTS));
         assertEquals(HIGH_CARD, hand.strength());
-
+        assertEquals(ACE, hand.highCard());
 //        CombinationApprovals.verifyAllCombinations(Card::new, Rank.values(), Suit.values());
     }
 
