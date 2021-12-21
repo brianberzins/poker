@@ -5,12 +5,6 @@ import java.util.stream.Collectors;
 
 final class Hand implements Comparable<Hand>{
 
-    enum Result {
-        WIN,
-        LOSE,
-        TIE
-    }
-
     final Card[] cards;
 
     Hand(Card... cards) {
