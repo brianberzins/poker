@@ -37,4 +37,7 @@ final class Hand implements Comparable<Hand> {
     }
 
 
+    boolean isFlush() {
+        return Arrays.stream(cards).allMatch(c -> c.suit == cards[0].suit);
+    }
 }

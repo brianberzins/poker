@@ -29,25 +29,14 @@ class HandTest {
     static final Hand ace_high_six_five_four_deuce =            new Hand("AC 2C 4C 5C 6S");
     static final Hand nine_high_six_five_four_deuce =           new Hand("9C 2C 4C 5C 6S");
 
-    static void assertWin(Hand expectedWinner, Hand expectedLoser) {
-        assertAll(
-                () -> assertTrue(0 < expectedWinner.compareTo(expectedLoser)),
-                () -> assertTrue(expectedLoser.compareTo(expectedWinner) < 0)
-        );
-    }
-
-    static void assertTie(Hand first, Hand second) {
-        assertAll(
-                () -> assertEquals(0, first.compareTo(second)),
-                () -> assertEquals(0, second.compareTo(first))
-        );
+    static Hand __(String hand) {
+        return new Hand(hand);
     }
 
     @Test
-    void testHands() {
-        assertAll(
-                () -> assertWin(ace_high_six_five_four_deuce, nine_high_six_five_four_deuce)
-        );
+    void testFlush() {
+        assertTrue(__("AS KS 9S JS 4S").isFlush());
+        assertFalse(__("9C 2C 4C 5C 6S").isFlush());
     }
 
 }
