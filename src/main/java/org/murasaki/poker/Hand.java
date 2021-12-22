@@ -44,13 +44,14 @@ final class Hand implements Comparable<Hand> {
 
     boolean isStraight() {
         int value = cards[1].rank.value;
+        // check for consecutive cards 2-5
         for (int i = 2; i < hand_size; i++) {
             value = value - 1;
             if (value != cards[i].rank.value) {
-                return false; // order of sorted cards 2-5 is not consecutive
+                return false;
             }
         }
-        // if we have an ace, need to check for both high and low straights
+        // check for ace-low straight
         if (cards[0].rank == Rank.ACE && cards[hand_size - 1].rank == Rank.DEUCE) {
             return true;
         }
