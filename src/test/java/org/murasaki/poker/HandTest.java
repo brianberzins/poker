@@ -39,4 +39,14 @@ class HandTest {
         assertFalse(__("9C 2C 4C 5C 6S").isFlush());
     }
 
+    @Test
+    void testStraight() {
+        assertTrue(__("AC 2C 3C 4C 5C").isStraight());
+        assertTrue(__("AC KC QC JC TH").isStraight());
+        assertTrue(__("4D 5D 6C 7D 8D").isStraight());
+        assertFalse(__("9C 2C 4C 5C 6S").isStraight());
+        assertFalse(__("AC KC KD JC TH").isStraight());
+        assertFalse(__("AC 2C 3C 5C 5C").isStraight());
+    }
+
 }

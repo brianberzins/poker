@@ -6,16 +6,17 @@ import java.util.stream.Collectors;
 
 final class Hand implements Comparable<Hand> {
 
+    static final int hand_size = 5;
     final Card[] cards;
 
     Hand(Card... cards) {
-        assert cards.length == 5;
+        assert cards.length == hand_size;
         Arrays.sort(cards, Collections.reverseOrder());
         this.cards = cards;
     }
 
     Hand(String... cards) {
-        this(Arrays.stream(cards).map(Card::new).toList().toArray(new Card[cards.length]));
+        this(Arrays.stream(cards).map(Card::new).toList().toArray(new Card[hand_size]));
     }
 
     Hand(String cards) {
@@ -39,5 +40,21 @@ final class Hand implements Comparable<Hand> {
 
     boolean isFlush() {
         return Arrays.stream(cards).allMatch(c -> c.suit == cards[0].suit);
+    }
+
+    boolean isStraight() {
+        int value = cards[1].rank.value;
+        for (int i = 2; i < hand_size; i++) {
+            value = value - 1;
+            if (value != cards[i].rank.value) {
+                return false; // order of sorted cards 2-5 is not consecutive
+            }
+        }
+        // if we have an ace, need to check for both high and low straights
+        if (cards[0].rank == Rank.ACE && cards[hand_size - 1].rank == Rank.DEUCE) {
+            return true;
+        }
+        // no ace, check if first card is consecutive to second
+        return cards[0].rank.value == cards[1].rank.value + 1;
     }
 }
