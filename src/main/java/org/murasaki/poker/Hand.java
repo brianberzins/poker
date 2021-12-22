@@ -1,6 +1,7 @@
 package org.murasaki.poker;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 final class Hand implements Comparable<Hand> {
@@ -9,7 +10,7 @@ final class Hand implements Comparable<Hand> {
 
     Hand(Card... cards) {
         assert cards.length == 5;
-        Arrays.sort(cards);
+        Arrays.sort(cards, Collections.reverseOrder());
         this.cards = cards;
     }
 
@@ -26,25 +27,13 @@ final class Hand implements Comparable<Hand> {
         return Arrays.stream(cards).map(Card::toString).collect(Collectors.joining(" "));
     }
 
-    @Override
-    public int compareTo(Hand other) {
-        for(int i = cards.length - 1; 0 <= i; i--) {
-            if (cards[i].rank.value < other.cards[i].rank.value) {
-                return -1;
-            } else if (other.cards[i].rank.value < cards[i].rank.value) {
-                return 1;
-            }
-        }
-        return 0;
+    int value() {
+        return cards[0].rank.value;
     }
 
-    Result compare(Hand other) {
-        return switch (compareTo(other)) {
-            case -1 -> Result.LOSE;
-            case 0 -> Result.TIE;
-            case 1 -> Result.WIN;
-            default -> throw new IllegalStateException();
-        };
+    @Override
+    public int compareTo(Hand other) {
+        return this.value() - other.value();
     }
 
 
